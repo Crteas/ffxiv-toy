@@ -2,6 +2,26 @@ import styled from "styled-components";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useState } from "react";
 
+// type inputProps = {
+//   itemName: "name1" | "name2" | "name3" | "name4" | "name5" | "name6" | "name7";
+//   itemCount:
+//     | "count1"
+//     | "count2"
+//     | "count3"
+//     | "count4"
+//     | "count5"
+//     | "count6"
+//     | "count7";
+//   itemPrice:
+//     | "price1"
+//     | "price2"
+//     | "price3"
+//     | "price4"
+//     | "price5"
+//     | "price6"
+//     | "price7";
+// };
+
 type items = {
   name1: string;
   name2: string;
@@ -24,6 +44,7 @@ type items = {
   price5: number;
   price6: number;
   price7: number;
+  [key: string]: string | number;
 };
 
 const CalcForm = styled.form``;
@@ -31,24 +52,26 @@ const CalcForm = styled.form``;
 function App() {
   const [count, setCount] = useState(1);
   const [priceArr, setPriceArr] = useState([0, 0, 0, 0, 0, 0, 0]);
-  const { register, handleSubmit, watch, getValues } = useForm<items>({
-    defaultValues: {
-      count1: 0,
-      count2: 0,
-      count3: 0,
-      count4: 0,
-      count5: 0,
-      count6: 0,
-      count7: 0,
-      price1: 0,
-      price2: 0,
-      price3: 0,
-      price4: 0,
-      price5: 0,
-      price6: 0,
-      price7: 0,
-    },
-  });
+  const { register, handleSubmit, watch, setValue, getValues } = useForm<items>(
+    {
+      defaultValues: {
+        count1: 0,
+        count2: 0,
+        count3: 0,
+        count4: 0,
+        count5: 0,
+        count6: 0,
+        count7: 0,
+        price1: 0,
+        price2: 0,
+        price3: 0,
+        price4: 0,
+        price5: 0,
+        price6: 0,
+        price7: 0,
+      },
+    }
+  );
   const onSubmit: SubmitHandler<items> = () => {};
 
   const items = watch();
@@ -60,7 +83,18 @@ function App() {
   };
   const countDown = () => {
     if (count <= 1) return;
-    console.log(priceArr[count - 1]);
+    setPriceArr((item) => {
+      const temp = item;
+      temp.splice(count - 1, 1, 0);
+      return temp;
+    });
+    console.log(priceArr);
+    const delCount = `count${count}`;
+    const delPrice = `price${count}`;
+    const delName = `name${count}`;
+    setValue(delCount, 0);
+    setValue(delPrice, 0);
+    setValue(delName, "");
     setCount((prev) => prev - 1);
   };
 
@@ -81,33 +115,6 @@ function App() {
     const temp = item;
     temp.splice(index, 1, value2 ? value * value2 : 0);
     return temp;
-  };
-
-  type inputProps = {
-    itemName:
-      | "name1"
-      | "name2"
-      | "name3"
-      | "name4"
-      | "name5"
-      | "name6"
-      | "name7";
-    itemCount:
-      | "count1"
-      | "count2"
-      | "count3"
-      | "count4"
-      | "count5"
-      | "count6"
-      | "count7";
-    itemPrice:
-      | "price1"
-      | "price2"
-      | "price3"
-      | "price4"
-      | "price5"
-      | "price6"
-      | "price7";
   };
 
   return (
@@ -288,6 +295,7 @@ function App() {
       <button onClick={countUp}>플러스</button>
       {count}
       <button onClick={countDown}>마이너스</button>
+      <div>{priceArr.reduce((a, b) => a + b)}</div>
     </>
   );
 }
