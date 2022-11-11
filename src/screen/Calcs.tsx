@@ -37,6 +37,16 @@ const CalcForm = styled.form`
   }
 `;
 
+const InfoController = styled.div``;
+
+const CountBtn = styled.button``;
+
+const CountSpan = styled.span``;
+
+const TotalValue = styled.div`
+  color: yellow;
+`;
+
 type items = {
   name1: string;
   name2: string;
@@ -64,7 +74,6 @@ type items = {
 
 function Calcs() {
   const [count, setCount] = useState(1);
-  const [isTax, setisTax] = useState(false);
   const [priceArr, setPriceArr] = useState([0, 0, 0, 0, 0, 0, 0]);
   const { register, handleSubmit, watch, setValue, getValues } = useForm<items>(
     {
@@ -131,7 +140,6 @@ function Calcs() {
     temp.splice(index, 1, totalPrice(index + 1));
     return temp;
   };
-  console.log(priceArr);
   return (
     <Wrapper>
       <CalcForm onSubmit={handleSubmit(onSubmit)}>
@@ -287,16 +295,16 @@ function Calcs() {
           </>
         ) : null}
       </CalcForm>
-      <button onClick={countDown}>마이너스</button>
-      <span style={{ color: "white" }}>{count}</span>
-      <button onClick={countUp}>플러스</button>
-      <div style={{ color: "yellow" }}>
-        {`총 합 : ${priceArr.reduce((a, b) => a + b)}`}
-      </div>
-      <div style={{ color: "yellow" }}>
-        {`총 합 (수수료 포함) : 
+      <InfoController>
+        <CountBtn onClick={countDown}>마이너스</CountBtn>
+        <CountSpan style={{ color: "white" }}>{count}</CountSpan>
+        <CountBtn onClick={countUp}>플러스</CountBtn>
+        <TotalValue>{`총 합 : ${priceArr.reduce((a, b) => a + b)}`}</TotalValue>
+        <TotalValue>
+          {`총 합 (수수료 포함) : 
         ${priceArr.reduce((a, b) => a + (b + Math.floor((b * 5) / 100)), 0)}`}
-      </div>
+        </TotalValue>
+      </InfoController>
     </Wrapper>
   );
 }
