@@ -35,7 +35,8 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
-  background-color:slategrey
+  	background:#303952;
+	font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 ol, ul {
 	list-style: none;

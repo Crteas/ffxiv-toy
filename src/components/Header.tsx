@@ -1,5 +1,41 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
+
+const Nav = styled.nav`
+  display: flex;
+  position: fixed;
+  align-items: center;
+  width: 100%;
+  height: 75px;
+  background: linear-gradient(to bottom, #303952, rgba(89, 98, 117, 0));
+  color: #f7d794;
+`;
+
+const Logo = styled.div`
+  margin-left: 10px;
+  font-size: 48px;
+`;
+
+const Items = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-left: 100px;
+  box-sizing: border-box;
+`;
+const Item = styled.div`
+  margin-right: 20px;
+  a {
+    text-decoration: none;
+    color: #f7d794;
+  }
+`;
+
+const ETClock = styled.div`
+  position: absolute;
+  right: 10px;
+  font-size: 30px;
+`;
 
 function Header() {
   const [hours, setHours] = useState(0);
@@ -38,19 +74,20 @@ function Header() {
   }
 
   return (
-    <>
-      <header>
-        <li>
+    <Nav>
+      <Logo>
+        <span>냐냐</span>
+      </Logo>
+      <Items>
+        <Item>
           <Link to={"/"}>계산기</Link>
-        </li>
-        <li>
+        </Item>
+        <Item>
           <Link to={"/about"}>about</Link>
-        </li>
-      </header>
-      <div style={{ fontSize: 30 }}>{`ET : ${hours}:${minute
-        .toString()
-        .padStart(2, "0")}`}</div>
-    </>
+        </Item>
+      </Items>
+      <ETClock>{`ET : ${hours}:${minute.toString().padStart(2, "0")}`}</ETClock>
+    </Nav>
   );
 }
 

@@ -3,27 +3,35 @@ import { useState } from "react";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
-  width: 1000px;
-  height: 500px;
+  width: 100%;
+  height: 100vh;
+  padding-top: 50px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #f7d794;
 `;
 
 const CalcInput = styled.input`
   background-color: rgba(0, 0, 0, 0);
   border: none;
-  border-bottom: 1px black solid;
+  border-bottom: 1px #f7d794 solid;
   margin-right: 10px;
   font-size: 17px;
+  color: #f7d794;
   &:focus {
     outline: none;
   }
 `;
 
 const CalcForm = styled.form`
-  width: 900px;
+  width: 850px;
   height: 300px;
-  margin: 50px;
-  border: 1px yellow solid;
+  margin: 50px 0 50px 0;
   padding: 5px;
+  padding-left: 30px;
+  background-color: #596275;
   box-sizing: border-box;
   border-radius: 10px;
   display: grid;
@@ -37,14 +45,46 @@ const CalcForm = styled.form`
   }
 `;
 
-const InfoController = styled.div``;
+const InfoController = styled.div`
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  &::selection {
+    background-color: none;
+  }
+`;
 
-const CountBtn = styled.button``;
+const CountBtn = styled.button`
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  display: flex;
+`;
 
-const CountSpan = styled.span``;
+const CountSvg = styled.svg`
+  width: 45px;
+  height: 45px;
+  fill: #f3a683;
+`;
+
+const CountSpan = styled.span`
+  font-size: 45px;
+  color: #f7d794;
+  &::selection {
+    background-color: red;
+  }
+`;
+
+const TotalInfo = styled.div`
+  color: #becfff;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+`;
 
 const TotalValue = styled.div`
-  color: yellow;
+  font-size: 20px;
+  margin-top: 20px;
+  font-size: 40px;
 `;
 
 type items = {
@@ -143,7 +183,11 @@ function Calcs() {
   return (
     <Wrapper>
       <CalcForm onSubmit={handleSubmit(onSubmit)}>
-        <CalcInput type="text" {...register("name1")} />
+        <CalcInput
+          type="text"
+          placeholder="아이템이름"
+          {...register("name1")}
+        />
         <CalcInput
           type="number"
           min="0"
@@ -164,7 +208,11 @@ function Calcs() {
 
         {count >= 2 ? (
           <>
-            <CalcInput type="text" {...register("name2")} />
+            <CalcInput
+              type="text"
+              placeholder="아이템이름"
+              {...register("name2")}
+            />
             <CalcInput
               type="number"
               min="0"
@@ -186,7 +234,11 @@ function Calcs() {
         ) : null}
         {count >= 3 ? (
           <>
-            <CalcInput type="text" {...register("name3")} />
+            <CalcInput
+              type="text"
+              placeholder="아이템이름"
+              {...register("name3")}
+            />
             <CalcInput
               type="number"
               min="0"
@@ -208,7 +260,11 @@ function Calcs() {
         ) : null}
         {count >= 4 ? (
           <>
-            <CalcInput type="text" {...register("name4")} />
+            <CalcInput
+              type="text"
+              placeholder="아이템이름"
+              {...register("name4")}
+            />
             <CalcInput
               type="number"
               min="0"
@@ -230,7 +286,11 @@ function Calcs() {
         ) : null}
         {count >= 5 ? (
           <>
-            <CalcInput type="text" {...register("name5")} />
+            <CalcInput
+              type="text"
+              placeholder="아이템이름"
+              {...register("name5")}
+            />
             <CalcInput
               type="number"
               min="0"
@@ -252,7 +312,11 @@ function Calcs() {
         ) : null}
         {count >= 6 ? (
           <>
-            <CalcInput type="text" {...register("name6")} />
+            <CalcInput
+              type="text"
+              placeholder="아이템이름"
+              {...register("name6")}
+            />
             <CalcInput
               type="number"
               min="0"
@@ -274,7 +338,11 @@ function Calcs() {
         ) : null}
         {count >= 7 ? (
           <>
-            <CalcInput type="text" {...register("name2")} />
+            <CalcInput
+              type="text"
+              placeholder="아이템이름"
+              {...register("name2")}
+            />
             <CalcInput
               type="number"
               min="0"
@@ -296,18 +364,38 @@ function Calcs() {
         ) : null}
       </CalcForm>
       <InfoController>
-        <CountBtn onClick={countDown}>마이너스</CountBtn>
-        <CountSpan style={{ color: "white" }}>{count}</CountSpan>
-        <CountBtn onClick={countUp}>플러스</CountBtn>
+        <CountBtn>
+          <CountSvg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 512 512"
+            onClick={countDown}
+          >
+            <path d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM184 232H328c13.3 0 24 10.7 24 24s-10.7 24-24 24H184c-13.3 0-24-10.7-24-24s10.7-24 24-24z" />
+          </CountSvg>
+        </CountBtn>
+        <CountSpan>{count}</CountSpan>
+        <CountBtn>
+          <CountSvg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 512 512"
+            onClick={countUp}
+          >
+            <path d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+          </CountSvg>
+        </CountBtn>
+      </InfoController>
+      <TotalInfo>
         <TotalValue>{`총 합 : ${priceArr.reduce((a, b) => a + b)}`}</TotalValue>
         <TotalValue>
-          {`총 합 (수수료 포함) : 
-        ${priceArr.reduce((a, b) => a + (b + Math.floor((b * 5) / 100)), 0)}`}
+          {`총 합  : 
+        ${priceArr.reduce(
+          (a, b) => a + (b + Math.floor((b * 5) / 100)),
+          0
+        )} (수수료 포함)`}
         </TotalValue>
-      </InfoController>
+      </TotalInfo>
     </Wrapper>
   );
 }
-//total + Math.floor((total * 5) / 100);
 
 export default Calcs;
